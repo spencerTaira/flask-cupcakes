@@ -119,3 +119,19 @@ def cupcake_update(cupcake_id):
     return jsonify(cupcake=serialized)
 
     # for key in json object, cupcake.key = key.value
+
+@app.delete('/api/cupcakes/<int:cupcake_id>')
+def cupcake_delete(cupcake_id):
+    """ Deletes a cupcake record from cupcakes table in database
+
+    Returns JSON like:
+        {deleted: [cupcake-id]}
+
+    and status code 200 on success, or 404 if cupcake cannot be found.
+    """
+
+    cupcake = Cupcake.query.get_or_404(cupcake_id)
+    db.session.delete(cupcake)
+    db.session.commit()
+
+    return jsonify(deleted=cupcake_id)

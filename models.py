@@ -16,7 +16,7 @@ class Cupcake(db.Model):
                    autoincrement=True)
     flavor = db.Column(db.String(20),
                        nullable=False)
-    size = db.Column(db.String(10),
+    size = db.Column(db.String(20),
                      nullable=False)
     rating = db.Column(db.Integer,
                        nullable=False)
