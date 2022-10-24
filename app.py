@@ -91,6 +91,7 @@ def cupcake_add():
 def cupcake_update(cupcake_id):
     """Updates a cupcake's information. Takes in cupcake_id in the URL
     and any updated information in the request body as JSON
+    Example input:
       {
         "flavor": "cherry",
         "size": "small",
@@ -101,13 +102,14 @@ def cupcake_update(cupcake_id):
     Returns JSON with newly-updated cupcake info. Status code
     200 on success, or 404 if cupcake cannot be found.:
 
-    {cupcake: {id, flavor, size, rating, image}}
+    Returns JSON like:
+        {cupcake: {id, flavor, size, rating, image}}
 
     """
 
     cupcake = Cupcake.query.get_or_404(cupcake_id)
 
-    cupcake.image = request.json.get('image', cupcake.image)
+    cupcake.image = request.json.get('image') or cupcake.image
     cupcake.rating = request.json.get('rating', cupcake.rating)
     cupcake.size = request.json.get('size', cupcake.size)
     cupcake.flavor = request.json.get('flavor', cupcake.flavor)
@@ -118,7 +120,6 @@ def cupcake_update(cupcake_id):
 
     return jsonify(cupcake=serialized)
 
-    # for key in json object, cupcake.key = key.value
 
 @app.delete('/api/cupcakes/<int:cupcake_id>')
 def cupcake_delete(cupcake_id):
@@ -129,8 +130,9 @@ def cupcake_delete(cupcake_id):
 
     and status code 200 on success, or 404 if cupcake cannot be found.
     """
-
+    # Cupcake.query.filter(...).delete()
     cupcake = Cupcake.query.get_or_404(cupcake_id)
+
     db.session.delete(cupcake)
     db.session.commit()
 
