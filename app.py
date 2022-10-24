@@ -22,6 +22,12 @@ app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 debug = DebugToolbarExtension(app)
 
 
+@app.get('/')
+def show_home():
+    """ Renders homepage """
+
+    return render_template('home.html')
+
 @app.get('/api/cupcakes')
 def cupcakes_info():
     """ Return JSON with all cupcakes info

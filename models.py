@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
-DEFAULT_IMAGE_URL = 'https: // tinyurl.com/demo-cupcake'
+DEFAULT_IMAGE_URL = 'https://tinyurl.com/demo-cupcake'
 
 
 class Cupcake(db.Model):
