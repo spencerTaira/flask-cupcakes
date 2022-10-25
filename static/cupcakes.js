@@ -1,9 +1,18 @@
 "use strict";
 
-const BASE_API_URL = "http://localhost:5001/api";
+const BASE_API_URL = "http://localhost:5000/api";
 const $cupcakesContainer = $('#cupcakes-container');
 const $addCupcakeForm = $('#cupcake-add-form');
 
+
+/**
+ * Main controller function
+ */
+
+async function main() {
+  const cupcakes = await getCupcakes();
+  showCupcakes(cupcakes);
+}
 
 /**
  * Makes axios get request to BASE_API_URL
@@ -37,8 +46,7 @@ function generateCupcake(cupcake) {
  * Output: None
  */
 
-async function showCupcakes() {
-  const cupcakes = await getCupcakes();
+function showCupcakes(cupcakes) {
 
   for (let cupcake of cupcakes) {
     $cupcakesContainer.append(generateCupcake(cupcake));
@@ -54,6 +62,8 @@ async function showCupcakes() {
  */
 async function addCupcake(evt) {
 
+  evt.preventDefault();
+
   const flavor = $('#flavor').val();
   const rating = $('#rating').val();
   const size = $('#size').val();
@@ -68,8 +78,10 @@ async function addCupcake(evt) {
       image
     }
   );
+
+  $cupcake = generateCupcake(response.data.cupcake)
+  $cupcakesContainer.append($cupcake)
 }
 
-showCupcakes();
-
+main();
 $addCupcakeForm.on('submit', addCupcake);
