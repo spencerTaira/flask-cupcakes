@@ -79,7 +79,7 @@ async function addCupcake(evt) {
     }
   );
 
-  $cupcake = generateCupcake(response.data.cupcake)
+  const $cupcake = generateCupcake(response.data.cupcake)
   $cupcakesContainer.append($cupcake)
 }
 

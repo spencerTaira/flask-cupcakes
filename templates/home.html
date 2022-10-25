@@ -18,14 +18,29 @@
     <!-- Cupcake list goes here-->
   </div>
   <form id="cupcake-add-form" action="">
-    <label for="flavor">Flavor: </label>
+    {{ form.hidden_tag() }} <!--add type=hidden form fields -->
+
+    {% for field in form
+          if field.widget.input_type != 'hidden' %}
+
+      <p>
+        {{ field.label }}
+        {{ field (class_="form-control")}}
+
+        {% for error in field.errors %}
+          {{ error }}
+        {% endfor %}
+      </p>
+
+    {% endfor %}
+    <!-- <label for="flavor">Flavor: </label>
     <input type="text" id="flavor" name="flavor">
     <label for="size">Size: </label>
     <input type="text" id="size" name="size">
     <label for="rating">Rating: </label>
     <input type="text" id="rating" name="rating">
     <label for="image">Image: </label>
-    <input type="text" id="image" name="image">
+    <input type="text" id="image" name="image"> -->
     <input type="submit" value="Submit">
   </form>
 
