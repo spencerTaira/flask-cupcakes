@@ -81,6 +81,7 @@ async function addCupcake(evt) {
 
   const $cupcake = generateCupcake(response.data.cupcake)
   $cupcakesContainer.append($cupcake)
+  $addCupcakeForm[0].reset();
 }
 
 main();
